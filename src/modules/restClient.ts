@@ -1,10 +1,7 @@
-export const apiIp = "http://141.45.161.106";
-export const port = 8888;
-/*
-export const apiIp = "http://localhost";
-export const port = 8000;
-*/
-export const basePath = `${apiIp}:${port}`;
+export const basePath =
+    typeof window === 'undefined'
+        ? process.env.BACKEND_URL      // Server-side
+        : '/backend';
 
 export async function fetchData(url: string, method: string = 'GET', data: any = null) {
   const fullUrl = `${basePath}/${url}`;
@@ -45,7 +42,7 @@ export async function fetchFormData(url: string, data: FormData){
     method: 'POST',
     body: data,
     headers: headers,
-    cache: 'no-store',
+    cache: 'no-store'
   };
 
   const response = await fetch(fullUrl, options);
